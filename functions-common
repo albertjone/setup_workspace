@@ -1,0 +1,110 @@
+#!/bin/bash
+function dir_or_file_exists() {
+  if [ -d $1 ] || [ -f $1 ]
+    then
+      return 1
+    else
+      return 0
+  fi
+}
+
+function print_software_is_installed() {
+  echo -e "\033[34m[ $1 ]\033[0m"
+}
+
+function is_brew_installed() {
+  brew -v
+  if [[ $? -eq 0 ]]
+    then
+      retval=1
+    else
+      retval=0
+  fi
+}
+
+function is_brew_software_installed() {
+  local target=$(brew list | grep $1)
+  if [[ -z $target || $target == " " ]]; then
+    target=$(brew cask list | grep $1)
+  fi
+
+  if [[ -z $target || $target == " " ]]; then
+      return 0
+    else
+      return 1
+  fi
+}
+
+function blue() {
+  echo -e "\033[34m[ $1 ]\033[0m"
+}
+
+function green() {
+  echo -e "\033[32m[ $1 ]\033[0m"
+}
+
+function red() {
+  echo -e "\033[31m\033[01m[ $1 ]\033[0m"
+}
+
+function file_not_exists() {
+  red "file: $1 not exist"
+}
+
+function file_or_dir_already_exists() {
+  blue "file or directory: $1 already exists"
+}
+
+function file_or_dir_create_unsuccessfully() {
+  local message="file or directory created unsuccessfully with name:"$1
+  green $message
+}
+
+function software_is_installed() {
+  local message="software is installed with name:"$1
+  blue $message
+}
+
+function set_http_https_proxy() {
+  export http_proxy=http://127.0.0.1:1087
+  export https_proxy=http://127.0.0.1:1087
+}
+
+function unset_http_https_proxy() {
+  unset http_proxy
+  unset https_proxy
+}
+
+function setup_virtualenv() {
+  pip install virtualenv
+  virtualenv $TOP_DIR/.venv
+}
+
+function setup_pip_rep() {
+  dir_or_file_exists ~/.pip
+  folder_exists=$?
+  if [ $folder_exists == 0 ]; then
+    mkdir ~/.pip
+  fi
+  cat << EOF > ~/.pip/pip.conf
+[global]
+https://mirrors.aliyun.com/pypi/simple/
+EOF
+
+}
+
+function setup_virtualenvwrappers() {
+  pip install virtualenvwrapper
+    # bakup your zsh configuration
+  cat << EOF >> ~/.zshrc
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+EOF
+
+}
+
+function create_virtualenvwrappers() {
+  source ~/.zshrc
+  mkvirtualenv develop
+  mkvirtualenv deploy
+}
