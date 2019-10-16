@@ -245,6 +245,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:${PATH}
 alias swork="cd ~/code/Work"
 alias sint="cd ~/code/Interest"
 alias srep="cd ~/code/Openstack"
+alais sproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;"
+alais dproxy="unset http_proxy;unset https_proxy"
 alias stack="ssh root@192.168.199.126"
 
 EOF
