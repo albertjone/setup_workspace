@@ -88,7 +88,7 @@ function setup_pip_rep() {
   fi
   cat << EOF > ~/.pip/pip.conf
 [global]
-https://mirrors.aliyun.com/pypi/simple/
+index-url = https://mirrors.aliyun.com/pypi/simple/
 EOF
 
 }
