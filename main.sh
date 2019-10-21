@@ -123,6 +123,14 @@ function install_brew_softwares() {
       software_is_installed python2
   fi
 
+  is_brew_software_installed font-hack-nerd-font
+  installed=$?
+  if [ $installed == 0 ]; then
+    brew tap homebrew/cask-fonts
+    brew cask install font-hack-nerd-font
+  else
+    software_is_installed font-hack-nerd-font
+  fi
 
   unset_http_https_proxy
 }
@@ -177,6 +185,8 @@ function setup_zshrc() {
   fi
 
   cat << EOF > ~/.zshrc
+source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
+
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="black"
@@ -240,13 +250,13 @@ POWERLEVEL9K_STATUS_CROSS=true
 
 # cause the python installed by homebrew will be placed to /usr/local/bin
 # Todo(xiaojueguan) this line will fail in deploy
-export PATH=/usr/local/bin:/usr/local/sbin:${PATH}
+export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
 
 alias swork="cd ~/code/Work"
 alias sint="cd ~/code/Interest"
 alias srep="cd ~/code/Openstack"
-alais sproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;"
-alais dproxy="unset http_proxy;unset https_proxy"
+alias sproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;"
+alias dproxy="unset http_proxy;unset https_proxy"
 alias stack="ssh root@192.168.199.126"
 
 EOF
