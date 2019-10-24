@@ -268,6 +268,50 @@ function git_clone_my_repos_to_interets() {
 
 }
 
+function config_git() {
+  cat << EOF > ~/.gitconfig
+; core variables
+[core]
+        ; Proxy setting
+        filemode = false
+        gitproxy=proxy-command for kernel.org
+        gitproxy=default-proxy ; for all the rest
+[http]
+      sslVerify
+[http "https://weak.example.com"]
+      sslVerify
+      cookieFile = /tmp/cookie.txt
+; It seems includeIf only works in the rep which under the directory
+[includeIf "gitdir/i:~/code/Work/"]
+        path = ~/.gitconfig-work.inc
+[includeIf "gitdir/i:~/code/OpenStack/"]
+        path = ~/.gitconfig-openstack.inc
+[includeIf "gitdir/i:~/code/Interest/"]
+       path = ~/.gitconfig-interest.inc
+EOF
+
+cat << EOF > ~/.gitconfig-work.inc
+[user]
+    name = guanxiaojue
+    email = guan.xiaojue@99cloud.net
+[gitreview]
+    username = guanxiaojue
+EOF
+
+cat << EOF > ~/.gitconfig-openstack.inc
+[user]
+    name = xiaojueguan
+    email = xiaojueguan@gmail.com
+EOF
+
+cat << EOF > ~/.gitconfig-interest.inc
+[user]
+    name = xiaojueguan
+    email = xiaojueguan@gmail.com
+EOF
+
+}
+
 function main() {
   install_brew_softwares
   setup_zshrc
@@ -277,6 +321,7 @@ function main() {
   git_clone_my_repos_to_interets
   setup_virtualenvwrappers
   create_virtualenvwrappers
+  config_git
 }
 
 main
