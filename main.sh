@@ -269,13 +269,17 @@ function git_clone_my_repos_to_interets() {
 }
 
 function config_git() {
+
+cat << EOF > ~/.gitignore_global
+.vscode/
+EOF
+
   cat << EOF > ~/.gitconfig
 ; core variables
 [core]
         ; Proxy setting
         filemode = false
-        gitproxy=proxy-command for kernel.org
-        gitproxy=default-proxy ; for all the rest
+        excludesfile = ~/.gitignore_global
 [http]
       sslVerify
 [http "https://weak.example.com"]
