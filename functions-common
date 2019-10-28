@@ -108,3 +108,45 @@ function create_virtualenvwrappers() {
   mkvirtualenv develop
   mkvirtualenv deploy
 }
+
+function setup_config_for_vscode() {
+  code -v
+  if [ $? != 0 ]; then
+    return
+  fi
+  cat << EOF > ~/Library/Application\ Support/Code/User/settings.json
+{
+    "workbench.editor.enablePreview": false,
+    "python.venvFolders": ["\${workspaceFolder}/.tox", "\${workspaceFolder}/.venv", ".tox/"],
+    "python.venvPath": "\${workspaceFolder}/.tox",
+    "[python]": {
+        "editor.rulers": [
+            80,
+            120
+        ]
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true,
+        "editor.wordWrap": "on",
+        "editor.renderWhitespace": "all",
+        "editor.acceptSuggestionOnEnter": "off"
+    },
+    "[shellscript]": {
+        "editor.minimap.maxColumn": 80,
+        "editor.autoIndent": true,
+        "editor.rulers": [
+            80,
+            120
+        ]
+    },
+    "files.autoSave": "afterDelay",
+    "window.zoomLevel": 2,
+    "editor.fontFamily": "hack nerd font"
+}
+EOF
+
+}

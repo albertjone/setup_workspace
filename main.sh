@@ -334,6 +334,7 @@ function main() {
   setup_virtualenvwrappers
   create_virtualenvwrappers
   config_git
+  setup_config_for_vscode
 }
 
 main
