@@ -132,6 +132,14 @@ function install_brew_softwares() {
     software_is_installed font-hack-nerd-font
   fi
 
+  is_brew_software_installed telnet
+  installed=$?
+  if [ $installed == 0 ]; then
+    brew install telnet
+  else
+    software_is_installed telnet
+  fi
+
   unset_http_https_proxy
 }
 
