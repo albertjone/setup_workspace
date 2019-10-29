@@ -200,21 +200,21 @@ POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="black"
 
 zsh_wifi_signal(){
-        local output=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I)
-        local airport=$(echo $output | grep 'AirPort' | awk -F': ' '{print $2}')
+        local output=\$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I)
+        local airport=\$(echo \$output | grep 'AirPort' | awk -F': ' '{print \$2}')
 
-        if [ "$airport" = "Off" ]; then
+        if [ "\$airport" = "Off" ]; then
                 local color='%F{black}'
-                echo -n "%{$color%}Wifi Off"
+                echo -n "%{\$color%}Wifi Off"
         else
-                local ssid=$(echo $output | grep ' SSID' | awk -F': ' '{print $2}')
-                local speed=$(echo $output | grep 'lastTxRate' | awk -F': ' '{print $2}')
+                local ssid=\$(echo \$output | grep ' SSID' | awk -F': ' '{print \$2}')
+                local speed=\$(echo \$output | grep 'lastTxRate' | awk -F': ' '{print \$2}')
                 local color='%F{black}'
 
-                [[ $speed -gt 100 ]] && color='%F{black}'
-                [[ $speed -lt 50 ]] && color='%F{red}'
+                [[ \$speed -gt 100 ]] && color='%F{black}'
+                [[ \$speed -lt 50 ]] && color='%F{red}'
 
-                echo -n "%{$color%}$speed Mbps \uf1eb%{%f%}" # removed char not in my PowerLine font
+                echo -n "%{\$color%}\$speed Mbps \uf1eb%{%f%}" # removed char not in my PowerLine font
         fi
 }
 
