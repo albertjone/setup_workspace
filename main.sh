@@ -140,6 +140,22 @@ function install_brew_softwares() {
     software_is_installed telnet
   fi
 
+  is_brew_software_installed pkg-config
+  installed=$?
+  if [ $installed == 0 ]; then
+    brew install pkg-config
+  else
+    software_is_installed pkg-config
+  fi
+
+  is_brew_software_installed libvirt
+  install=$?
+  if [ $installed == 0 ]; then
+    brew install libvirt
+  else
+    software_is_installed libvirt
+  fi
+
   unset_http_https_proxy
 }
 
