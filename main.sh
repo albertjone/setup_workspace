@@ -342,18 +342,16 @@ EOF
 }
 
 function main() {
-  install_brew_softwares
+  # install_brew_softwares
   setup_zshrc
-  setup_pip_rep
-  setup_code_directory
-  git_clone_company_repo_to_work
-  git_clone_my_repos_to_interets
-  setup_virtualenvwrappers
-  create_virtualenvwrappers
-  config_git
-  setup_config_for_vscode
+  # setup_pip_rep
+  # setup_code_directory
+  # git_clone_company_repo_to_work
+  # git_clone_my_repos_to_interets
+  # setup_virtualenvwrappers
+  # create_virtualenvwrappers
+  # config_git
+  # setup_config_for_vscode
 }
 
 main
-
-
