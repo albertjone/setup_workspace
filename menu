@@ -1,0 +1,4 @@
+#!/bin/bash
+function task_check() {
+    if $1 == "
+}

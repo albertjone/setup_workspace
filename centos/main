@@ -1,0 +1,18 @@
+#!/bin/bash
+function install_common_softwares() {
+	yum install -y wget
+	yum install -y curl
+	yum install -y git
+
+}
+
+
+
+function setup_v2ray() {
+    
+}
+
+function main() {
+	install_common_softwares
+	setup_v2ray
+}

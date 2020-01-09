@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function setup_zshrc() {
+  # bakup your zsh configuration
+  if [ -f ~/.zshrc ]
+    then
+      mv ~/.zshrc ~/.zshrc.bak$(date "+%Y-%m-%d%H:%M:%S")
+  fi
+
+  cat << EOF > ~/.zshrc
+export ZSH=$HOME/.oh-my-zsh
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="white"
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_TIME_BACKGROUND="black"
+POWERLEVEL9K_TIME_FOREGROUND="249"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M} \uE12E"
+POWERLEVEL9K_COLOR_SCHEME='light'
+POWERLEVEL9K_VCS_GIT_ICON='\uE1AA'
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uE1AA'
+POWERLEVEL9K_HIDE_BRANCH_ICON=true
+
+
+alias swork="cd ~/code/Work"
+alias sint="cd ~/code/Interest"
+alias srep="cd ~/code/Openstack"
+alias sproxy="export http_proxy=http://127.0.0.1:1081;export https_proxy=http://127.0.0.1:1081;"
+alias dproxy="unset http_proxy;unset https_proxy"
+alias stack="ssh root@192.168.199.126"
+alias refresh="source ~/.zshrc"
+
+EOF
+}
